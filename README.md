@@ -15,6 +15,3 @@ Service that can keep track of the vaccination doses for the general population.
    1. docker pull shridevijpmc/vaccination-service
    2. docker run -d --name companion-service -p 8090:8090
 4. View and try out different end points by opening  http://localhost:9091/swagger-url.html URL.
-
-
-##### Download the repo : [myrepo](repo_link)
