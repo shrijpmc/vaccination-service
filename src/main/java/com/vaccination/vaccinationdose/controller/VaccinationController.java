@@ -34,7 +34,7 @@ public class VaccinationController {
     @PostMapping("/addDetails")
     public ResponseEntity<String> addVaccinationDetails(@RequestBody VaccinationRequestParam requestParam){
         vaccinationService.addVaccinationDetails(requestParam);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.ok("Vaccination details are added successfully");
     }
 
     @Operation(summary = "Get dosage history of an individual.")
