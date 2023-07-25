@@ -9,7 +9,9 @@ import com.vaccination.vaccinationdose.entity.VaccinationDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class VaccinationRepository {
@@ -38,10 +40,14 @@ public class VaccinationRepository {
        individual.setUserName(userName);
         DynamoDBQueryExpression<Individual> queryExpression = new DynamoDBQueryExpression<Individual>()
                 .withHashKeyValues(individual);
-
         List<Individual> result = dynamoDBMapper.query(Individual.class, queryExpression);
-        List<DosageHistory> dosageHistories = result.get(0).getDosageHistory();
-        return dosageHistories;
+
+        if(result.isEmpty()){
+           return new ArrayList<>();
+        }else {
+            return result.get(0).getDosageHistory();
+        }
+
     }
 
     public VaccinationDetail getVaccinationDetail(String region) {

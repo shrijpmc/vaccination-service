@@ -86,10 +86,13 @@ public class VaccinationService {
 
     public VaccinationSummary getVaccinationSummary(String region) {
         VaccinationDetail vaccinationDetail = vaccinationRepository.getVaccinationDetail(region);
-        Set<String> vc = vaccinationDetail.getVaccinationDetail().stream().map(Detail::getVaccinationCenter).collect(Collectors.toSet());
-        Set<String> vt = vaccinationDetail.getVaccinationDetail().stream().map(Detail::getVaccinationType).collect(Collectors.toSet());
-        VaccinationSummary summary = new VaccinationSummary(vaccinationDetail.getNoOfDosage(),
-                vc,vt,region);
-        return summary;
+        if(null !=vaccinationDetail) {
+            Set<String> vc = vaccinationDetail.getVaccinationDetail().stream().map(Detail::getVaccinationCenter).collect(Collectors.toSet());
+            Set<String> vt = vaccinationDetail.getVaccinationDetail().stream().map(Detail::getVaccinationType).collect(Collectors.toSet());
+             return new VaccinationSummary(vaccinationDetail.getNoOfDosage(),
+                    vc, vt, region);
+        }else{
+            return null;
+        }
     }
 }
