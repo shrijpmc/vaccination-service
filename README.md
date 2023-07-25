@@ -10,7 +10,7 @@ Service that can keep track of the vaccination doses for the general population.
 [Docker Desktop] (https://docs.docker.com/desktop/install/mac-install/)
 
 
-2. Download the image file from Docker Hub : [vaccination-service](targetURL).
+2. Download the image file from Docker Hub : [vaccination-service](https://hub.docker.com/repository/docker/shridevijpmc/vaccination-service/general).
 3. Run below command.
    1. docker pull shridevijpmc/vaccination-service
    2. docker run -d --name companion-service -p 8090:8090
