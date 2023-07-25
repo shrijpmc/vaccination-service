@@ -31,7 +31,7 @@ public class VaccinationService {
         if(null != existingVaccinationDetail){
             existingVaccinationDetail.getVaccinationDetail().add(prepareDetails(requestParam));
 
-            //saving vaccination detail.
+            //saving vaccination detail with updated details.
             vaccinationRepository.saveVaccinationDetail(existingVaccinationDetail);
         }else{
             VaccinationDetail vaccinationDetail = new VaccinationDetail();
@@ -41,17 +41,19 @@ public class VaccinationService {
 
             vaccinationDetail.setVaccinationDetail(details);
 
-            //saving vaccination detail.
+            //saving vaccination detail with new set of details.
             vaccinationRepository.saveVaccinationDetail(vaccinationDetail);
         }
 
         // prepare data for Individual dosage.
         Individual existingIndividual = vaccinationRepository.findByUserName(requestParam.getIndividualUserName());
         if (null != existingIndividual && !existingIndividual.getDosageHistory().isEmpty()) {
+            // Add new dosage if individual already has a dosage history.
             List<DosageHistory> existingDosages = existingIndividual.getDosageHistory();
             existingDosages.add(prepareDosageHistory(requestParam));
             vaccinationRepository.saveIndividual(existingIndividual);
         } else {
+            // Add new Individual to DB and create dosage history for an individual.
             Individual individual = new Individual();
             individual.setUserName(requestParam.getIndividualUserName());
             List<DosageHistory> dosageHistories = new ArrayList<>();
