@@ -12,7 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class VaccinationSummary {
 
-    private Integer dosagePercentage;
+    private Integer dosageCount;
     private Set<String> activeVaccinationCenter;
     private Set<String> availableVaccinationTypes;
     private String region;

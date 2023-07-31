@@ -27,14 +27,14 @@ public class VaccinationController {
 
     @Operation(summary = "Add Vaccination details. ")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Added Vaccination detail."),
+            @ApiResponse(responseCode = "201", description = "Added Vaccination detail are added."),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Server Error")})
     @Log
     @PostMapping("/addDetails")
     public ResponseEntity<String> addVaccinationDetails(@RequestBody VaccinationRequestParam requestParam){
         vaccinationService.addVaccinationDetails(requestParam);
-        return ResponseEntity.ok("Vaccination details are added successfully");
+        return new ResponseEntity<String>("Vaccination details are added successfully", HttpStatus.CREATED);
     }
 
     @Operation(summary = "Get dosage history of an individual.")
@@ -44,9 +44,10 @@ public class VaccinationController {
             @ApiResponse(responseCode = "500", description = "Server Error")})
     @Log
     @GetMapping("/dosageHistory/{userName}")
-    public ResponseEntity<List<DosageHistory>> getDosageHistory(@PathVariable("userName") String userName){
+    @ResponseStatus(HttpStatus.OK)
+    public List<DosageHistory> getDosageHistory(@PathVariable("userName") String userName){
         List<DosageHistory> dosageHistories =  vaccinationService.getDosageHistory(userName);
-        return new ResponseEntity<List<DosageHistory>>(dosageHistories,HttpStatus.OK);
+        return dosageHistories;
     }
 
     @Operation(summary = "Get Vaccination summary by region name.")
@@ -56,9 +57,10 @@ public class VaccinationController {
             @ApiResponse(responseCode = "500", description = "Server Error")})
     @Log
     @GetMapping("/summary/{region}")
-    public ResponseEntity<VaccinationSummary>  getVaccinationSummary(@PathVariable("region") String region){
+    @ResponseStatus(HttpStatus.OK)
+    public VaccinationSummary  getVaccinationSummary(@PathVariable("region") String region){
       VaccinationSummary summary = vaccinationService.getVaccinationSummary(region);
-      return new ResponseEntity<VaccinationSummary>(summary,HttpStatus.OK);
+      return summary;
     }
 
 }
